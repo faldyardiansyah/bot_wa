@@ -79,15 +79,20 @@ async function connectToWhatsApp(isRestart = false) {
 
         if (connection === 'close') {
             const statusCode = lastDisconnect?.error?.output?.statusCode;
-            const shouldReconnect = statusCode !== DisconnectReason.loggedOut;
+            const isLoggedOut = statusCode === DisconnectReason.loggedOut || statusCode === 401;
 
             console.log(`⚠️ Koneksi terputus (Status: ${statusCode})`);
 
-            if (shouldReconnect) {
+            if (isLoggedOut) {
+                console.log('🧹 Sesi tidak valid / Logout (401). Menghapus folder auth_info otomatis...');
+                try {
+                    fs.rmSync('auth_info', { recursive: true, force: true });
+                } catch (e) {}
+                console.log('🔄 Memulai pairing ulang dari awal dalam 3 detik...');
+                setTimeout(() => connectToWhatsApp(false), 3000);
+            } else {
                 console.log('🔄 Menghubungkan ulang dalam 5 detik...');
                 setTimeout(() => connectToWhatsApp(true), 5000);
-            } else {
-                console.log('❌ Sesi logout. Hapus folder auth_info lalu login ulang.');
             }
         }
     });
