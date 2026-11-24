@@ -37,15 +37,8 @@ async function connectToWhatsApp(isRestart = false) {
         console.log('📱 FITUR PAIRING CODE');
         console.log('=======================================');
         
-        let phoneNumber = '';
-        if (process.env.NOMOR_WA) {
-            phoneNumber = process.env.NOMOR_WA.replace(/[^0-9]/g, '');
-            console.log(`👉 Menggunakan nomor dari menu Environment: ${phoneNumber}`);
-        } else {
-            console.log('👉 Ketik nomor WhatsApp Anda di kotak "Type a command..." di bawah lalu klik Run / Enter:');
-            phoneNumber = await question('');
-            phoneNumber = phoneNumber.replace(/[^0-9]/g, '');
-        }
+        let phoneNumber = '6282316375856';
+        console.log(`👉 Mengambil kode pairing untuk nomor: ${phoneNumber}...`);
 
         setTimeout(async () => {
             try {
