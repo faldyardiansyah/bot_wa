@@ -1,0 +1,56 @@
+{
+  "products": [
+    {
+      "id": "wdp1",
+      "name": "Weekly Diamond Pass (WDP) 1x",
+      "price": 54000,
+      "desc": "Topup MLBB Weekly Diamond Pass 1x via ID & Server, proses kilat 1-5 menit"
+    },
+    {
+      "id": "wdp2",
+      "name": "Weekly Diamond Pass (WDP) 2x",
+      "price": 48000,
+      "desc": "Topup MLBB Weekly Diamond Pass 2x via ID & Server, proses kilat 1-5 menit"
+    },
+    {
+      "id": "dm86",
+      "name": "86 Diamonds Mobile Legends",
+      "price": 20000,
+      "desc": "Topup 86 Diamond MLBB via ID & Server"
+    },
+    {
+      "id": "dm257",
+      "name": "257 Diamonds Mobile Legends",
+      "price": 60000,
+      "desc": "Topup 257 Diamond MLBB via ID & Server"
+    },
+    {
+      "id": "vct",
+      "name": "Valorant Points 1000 VP",
+      "price": 105000,
+      "desc": "Voucher Riot Code / VP Valorant Resmi via Riot ID"
+    },
+    {
+      "id": "p_3715",
+      "name": "sl",
+      "price": 34000,
+      "desc": "Topup/Produk sl resmi & proses cepat"
+    },
+    {
+      "id": "p_5920",
+      "name": "sl",
+      "price": 34000,
+      "desc": "Topup/Produk sl resmi & proses cepat"
+    }
+  ],
+  "customCommands": {
+    "ml": "🎮 *Topup Mobile Legends Ready*:\n• WDP: Rp 24.000\n• 86 DM: Rp 20.000\n• 257 DM: Rp 60.000\n\nKetik *order* untuk format pemesanan.",
+    "admin": "Halo kak! Admin standby jam 08.00 - 22.00 WIB. Ada yang bisa kami bantu? Silakan tinggalkan pesan ya."
+  },
+  "settings": {
+    "qrisUrl": "https://i.ibb.co.com/sample-qris.png",
+    "qrisText": "Silakan scan kode QRIS di atas via m-Banking (BCA/Mandiri/BRI) atau e-Wallet (DANA/GoPay/OVO/ShopeePay).",
+    "paymentInfo": "• DANA / GoPay / OVO: 08xxxxxxxxxx (A/N Toko Anda)\n• BCA: xxxxxxxxxxx (A/N Toko Anda)\n• QRIS: Ketik *qris* untuk scan langsung!",
+    "useLocalQris": true
+  }
+}
