@@ -1,6 +1,7 @@
 import makeWASocket, { 
     useMultiFileAuthState, 
-    DisconnectReason 
+    DisconnectReason,
+    fetchLatestBaileysVersion
 } from '@whiskeysockets/baileys';
 import pino from 'pino';
 import readline from 'readline';
@@ -13,16 +14,21 @@ const question = (text) => new Promise((resolve) => rl.question(text, resolve));
 
 async function connectToWhatsApp(isRestart = false) {
     const { state, saveCreds } = await useMultiFileAuthState('auth_info');
+    const { version, isLatest } = await fetchLatestBaileysVersion();
 
     const sock = makeWASocket({
+        version,
         logger: pino({ level: 'silent' }),
         printQRInTerminal: false,
         auth: state,
-        browser: ['Ubuntu', 'Chrome', '20.0.04'],
-        // Memberi waktu koneksi lebih stabil agar tidak cepat timeout saat pairing
+        // Gunakan identitas resmi Chrome Mac OS yang paling diakui server WhatsApp
+        browser: ['Mac OS', 'Chrome', '124.0.0.0'],
+        syncFullHistory: false,
+        markOnlineOnConnect: true,
         connectTimeoutMs: 60000,
         defaultQueryTimeoutMs: 60000,
-        keepAliveIntervalMs: 10000
+        keepAliveIntervalMs: 30000,
+        generateHighQualityLinkPreview: true
     });
 
     // JIKA BELUM LOGIN: Minta Pairing Code ke WhatsApp
@@ -68,9 +74,11 @@ async function connectToWhatsApp(isRestart = false) {
             const statusCode = lastDisconnect?.error?.output?.statusCode;
             const shouldReconnect = statusCode !== DisconnectReason.loggedOut;
 
+            console.log(`⚠️ Koneksi terputus (Status: ${statusCode})`);
+
             if (shouldReconnect) {
-                console.log('🔄 Menghubungkan ulang dalam 3 detik...');
-                setTimeout(() => connectToWhatsApp(true), 3000);
+                console.log('🔄 Menghubungkan ulang dalam 5 detik...');
+                setTimeout(() => connectToWhatsApp(true), 5000);
             } else {
                 console.log('❌ Sesi logout. Hapus folder auth_info lalu login ulang.');
             }
