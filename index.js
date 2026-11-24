@@ -12,6 +12,10 @@ import { handleMessages } from './handler.js';
 const rl = readline.createInterface({ input: process.stdin, output: process.stdout });
 const question = (text) => new Promise((resolve) => rl.question(text, resolve));
 
+// Nomor WhatsApp bisa diatur lewat menu Environment di Bot-Hosting (NOMOR_WA),
+// atau jika tidak diisi, akan otomatis memakai nomor default di bawah ini:
+const PHONE_NUMBER = process.env.NOMOR_WA || process.env.PHONE_NUMBER || '6282316375856';
+
 async function connectToWhatsApp(isRestart = false) {
     const { state, saveCreds } = await useMultiFileAuthState('auth_info');
     const { version, isLatest } = await fetchLatestBaileysVersion();
@@ -34,11 +38,11 @@ async function connectToWhatsApp(isRestart = false) {
     // JIKA BELUM LOGIN: Minta Pairing Code ke WhatsApp
     if (!sock.authState.creds.registered) {
         console.log('\n=======================================');
-        console.log('📱 FITUR PAIRING CODE (TANPA PERLU SCAN QR)');
+        console.log('📱 FITUR PAIRING CODE (OTOMATIS TANPA KETIK MANUAL)');
         console.log('=======================================');
         
-        let phoneNumber = await question('👉 Masukkan Nomor WhatsApp Anda (Awali 62, contoh: 6281234567890): ');
-        phoneNumber = phoneNumber.replace(/[^0-9]/g, '');
+        let phoneNumber = PHONE_NUMBER.replace(/[^0-9]/g, '');
+        console.log(`👉 Meminta kode untuk nomor: ${phoneNumber}`);
 
         setTimeout(async () => {
             try {
